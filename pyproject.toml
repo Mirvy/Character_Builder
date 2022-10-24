@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "character-builder"
+version = "0.1.0"
+description = "A PyQt project using the DnD5e web API, for creating DnD Characters"
+authors = ["Mike <michael.yelverton89@gmail.com>"]
+readme = "README.md"
+packages = [{include = "character_builder"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pyqt5 = "^5.15.7"
+aiohttp = "^3.8.3"
+asyncio = "^3.4.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
