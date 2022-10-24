@@ -1,14 +1,19 @@
 import sys
-from PyQt5 import QtWidgets, QtGui
+from PyQt5 import QtGui
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QHBoxLayout
 
-app = QtWidgets.QApplication(sys.argv)
-windows = QtWidgets.QWidget()
 
-windows.resize(500,500)
-windows.move(100,100)
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    w = QWidget()
+    layout = QHBoxLayout()
+    btn = QPushButton("Hello World!")
+    layout.addWidget(btn)
+    w.setLayout(layout)
 
-windows.setWindowTitle("Character Builder")
-windows.setWindowIcon(QtGui.QIcon('icon.png'))
-
-windows.show()
-sys.exit(app.exec_())
+    w.resize(500,500)
+    w.move(100,100)
+    w.setWindowTitle("Character Builder")
+    w.setWindowIcon(QtGui.QIcon('icon.png'))
+    w.show()
+    sys.exit(app.exec_())
