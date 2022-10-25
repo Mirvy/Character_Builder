@@ -1,38 +1,25 @@
-from PyQt5.QtWidgets import *
 import sys
+from PyQt5.QtWidgets import QApplication, QWidget, QMessageBox
 
-class QLabelBuddy(QDialog) :
+class Example(QWidget):
     def __init__(self):
         super().__init__()
         self.initUI()
 
     def initUI(self):
-        self.setWindowTitle('QLabel Example')
-        self.setFixedWidth(280)
+        self.setGeometry(300, 300, 300, 220)
+        self.setWindowTitle('Hello World')
+        self.show()
 
-        nameLabel = QLabel('&Name',self)
-        nameLineEdit = QLineEdit(self)
-        nameLabel.setBuddy(nameLineEdit)
-
-        passwordLabel = QLabel('&Password',self)
-        passwordLineEdit = QLineEdit(self)
-        passwordLabel.setBuddy(passwordLineEdit)
-
-        btnOK = QPushButton('&OK')
-        btnCancel = QPushButton('&Cancel')
-
-        mainLayout = QGridLayout(self)
-        mainLayout.addWidget(nameLabel,0,0)
-        mainLayout.addWidget(nameLineEdit,0,1,1,2)
-
-        mainLayout.addWidget(passwordLabel,1,0)
-        mainLayout.addWidget(passwordLineEdit,1,1,1,2)
-
-        mainLayout.addWidget(btnOK,2,1)
-        mainLayout.addWidget(btnCancel,2,2)
+    def closeEvent(self, event):
+        reply = QMessageBox.question(self, 'Quit', 'Are you sure you want to quit?',
+        QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if reply == QMessageBox.Yes:
+            event.accept()
+        else:
+            event.ignore()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    main = QLabelBuddy()
-    main.show()
+    ex = Example()
     sys.exit(app.exec_())
