@@ -1,56 +1,34 @@
+from PyQt5.QtWidgets import QApplication,QWidget,QTextEdit,QVBoxLayout,QPushButton
 import sys
-from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QMainWindow, QToolButton
 
-class PushButton(QWidget):
-    def __init__(self):
-        super(PushButton,self).__init__()
-        self.initUI()
+class TextEditDemo(QWidget):
+    def __init__(self,parent=None):
+        super().__init__(parent)
 
-    def initUI(self):
-        self.setWindowTitle("PushButton")
-        self.setGeometry(400,400,300,260)
-        self.closeButton = QPushButton(self)
-        self.closeButton.setText("Close")          #text
-        self.closeButton.setIcon(QIcon("close.png")) #icon
-        self.closeButton.setShortcut('Ctrl+D')  #shortcut key
-        self.closeButton.clicked.connect(self.close)
-        self.closeButton.setToolTip("Close the widget") #Tool tip
-        self.closeButton.move(100,100)
+        self.setWindowTitle("QTextEdit")
+        self.resize(300,270)
 
-class ToolButton(QMainWindow):
+        self.textEdit = QTextEdit()
+        self.btnPress1 = QPushButton("Button 1")
+        self.btnPress2 = QPushButton("Button 2")
 
-    def __init__(self):
-        super(ToolButton,self).__init__()
-        self.initUI()
+        layout = QVBoxLayout()
+        layout.addWidget(self.textEdit)
+        layout.addWidget(self.btnPress1)
+        layout.addWidget(self.btnPress2)
+        self.setLayout(layout)
 
-    def initUI(self):
-        self.setWindowTitle("ToolButton")
-        self.setGeometry(400,400,300,260)
+        self.btnPress1.clicked.connect(self.btnPress1_Clicked)
+        self.btnPress2.clicked.connect(self.btnPress2_Clicked)
 
-        self.toolbar = self.addToolBar("toolBar")
-        self.statusBar()
+    def btnPress1_Clicked(self):
+        self.textEdit.setPlainText("Hello PyQt5!\nfrom pythonpyqt.com")
 
-        self._detailsbutton = QToolButton()                                     
-        self._detailsbutton.setCheckable(True)                                  
-        self._detailsbutton.setChecked(False)                                   
-        self._detailsbutton.setArrowType(Qt.RightArrow)
-        self._detailsbutton.setAutoRaise(True)
-        #self._detailsbutton.setIcon(QIcon("test.jpg"))
-        self._detailsbutton.setToolButtonStyle(Qt.ToolButtonIconOnly)
-        self._detailsbutton.clicked.connect(self.showDetail)
-        self.toolbar.addWidget(self._detailsbutton)
+    def btnPress2_Clicked(self):
+        self.textEdit.setHtml("<font color='red' size='6'><red>Hello PyQt5!\nHello</font>")
 
-    def showDetail(self):
-        if self._detailsbutton.isChecked():
-            self.statusBar().showMessage("Show Detail....")
-        else:
-            self.statusBar().showMessage("Close Detail....")
-
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = ToolButton()
-    ex.show()
+    win = TextEditDemo()
+    win.show()
     sys.exit(app.exec_())
