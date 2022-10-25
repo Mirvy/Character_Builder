@@ -1,26 +1,27 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow
-from PyQt5.QtCore import pyqtSignal, QObject
 
-class Communicate(QObject):
-    closeApp = pyqtSignal()
+from PyQt5.QtWidgets import (QApplication, QWidget, 
+    QToolTip, QPushButton)
+from PyQt5.QtGui import QFont
 
-class Example(QMainWindow):
+class Example(QWidget):
 
-    def __init__(self):
-        super().__init__()
-        self.initUI()
-    def initUI(self):
-        self.c = Communicate()
-        self.c.closeApp.connect(self.close)
-        self.setGeometry(300, 300, 300, 150)
-        self.setWindowTitle('Mouse events') 
-        self.show()
+  def __init__(self):
+    super().__init__()
+    self.initUI()
 
-    def mousePressEvent(self, event):
-        self.c.closeApp.emit()
+  def initUI(self):
+    QToolTip.setFont(QFont('Arial', 14))
+    self.setToolTip('Tooltip for <b>QWidget</b>')
+    btn = QPushButton('Button', self)
+    btn.setToolTip('Tooltip for <b>QPushButton</b>')
+    btn.resize(btn.sizeHint())
+    btn.move(50, 50)
+    self.setGeometry(300, 300, 300, 220)
+    self.setWindowTitle('PyQt tooltip')    
+    self.show()
 
 if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    ex = Example()
-    sys.exit(app.exec_())
+  app = QApplication(sys.argv)
+  ex = Example()
+  sys.exit(app.exec_())
